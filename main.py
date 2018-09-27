@@ -1,9 +1,11 @@
 from Experiment import Experiment
 
 def main():
+    numExperiments = 500
+    numVals = 1000
+
     experiment = Experiment()
-    experiment.runResultsInvCumul()
-    print(experiment.resultsMean())
-    experiment.plotHist(experiment.results)
+    experiment.runMany(numExperiments, numVals)
+    experiment.plotHist(experiment.resultsMean)
 
 main()
