@@ -31,21 +31,31 @@ class Experiment(object):
             self.results.append(pdf.nextInvCumul())
 
 
+
+
+
     #returns mean of self.results
     def getResultsMean(self):
-        N = float(len(self.results))
-        mean = sum(self.results)/N
-        return mean
+        return np.mean(self.results)
 
+    #returns the mean of the standard deviation of all the results in
+    #resultsSecond
+    def getMeanStdDevInResults(self):
+        runningSum = 0.
+        for result in self.resultsSecond:
+            runningSum += np.std(result)
+        return runningSum/len(self.resultsSecond)
+
+    #returns std deviation of resultsMean
     def getStdDevResultsMean(self):
         return np.std(self.resultsMean, axis = 0)
 
+    #returns mean of resultsMean
+    #this is the mean of all data
     def getResultsSecondMean(self):
         return np.mean(self.resultsMean)
 
-    def plotHist(self, data):
-        pl.hist(data, bins = 100)
-        pl.show()
+
 
 
     #runs runResults__ many times and gathers mean
@@ -53,8 +63,8 @@ class Experiment(object):
     '''
         numiterVals: the number of data points taken in a set
         numIterExperiments: the number of sets of data taken
-        runResultsSecond: array of numIterExperiments many runResults
-        resultsMean: array of all the means of the corresponding results
+        resultsSecond: list of numIterExperiments many runResults
+        resultsMean: list of all the means of the corresponding results
     '''
     def runMany(self, numIterExperiments, numIterVals):
         self.resultsSecond = []
@@ -68,3 +78,21 @@ class Experiment(object):
 
             sys.stdout.flush()
         print("")
+
+    def plotHistWithCurve(self, data, numVals):
+        bins = 100
+
+        pdf = ExpPDF(self.tau, self.upper)
+        x = np.linspace(0, self.upper, 200)
+        y = []
+        for val in x:
+            #some scaling done
+            y.append((numVals * self.upper/bins) * pdf.evaluate(val))
+
+        pl.hist(data, bins = bins)
+        pl.plot(x,y)
+        pl.show()
+
+    def plotHist(self, data):
+        pl.hist(data, bins = 100)
+        pl.show()
