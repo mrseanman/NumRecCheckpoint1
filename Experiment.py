@@ -1,5 +1,6 @@
 import matplotlib.pylab as pl
 import sys
+import numpy as np
 
 from ExpPDF import ExpPDF
 
@@ -7,7 +8,8 @@ class Experiment(object):
 
     def __init__(self):
         #upperBound
-        self.upper = 10.
+        #the choice of upper bound has a large effect on final results!
+        self.upper = 25.
         self.tau = 2.2
 
     #fills an array of random numbers according
@@ -35,6 +37,11 @@ class Experiment(object):
         mean = sum(self.results)/N
         return mean
 
+    def getStdDevResultsMean(self):
+        return np.std(self.resultsMean, axis = 0)
+
+    def getResultsSecondMean(self):
+        return np.mean(self.resultsMean)
 
     def plotHist(self, data):
         pl.hist(data, bins = 100)
