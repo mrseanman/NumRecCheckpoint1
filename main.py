@@ -1,5 +1,18 @@
 from Experiment import Experiment
 
+def tauFromOneDataSet():
+    tau = 2.2
+    upperBound = 25.
+    numVals = 1000
+
+    #send numExperiments = 0 because irrelevant
+    experiment = Experiment(tau, upperBound, numVals, 0)
+
+    experiment.runResultsInvCumul()
+    print("Estimation of tau: " + str(experiment.getResultsMean()))
+    print("Std. Dev. of results: " + str(experiment.getStdDevResults()))
+    experiment.plotHistWithCurve()
+
 def main():
     numExperiments = 5000
     numVals = 100000
@@ -20,4 +33,4 @@ def main():
 
 
 
-main()
+tauFromOneDataSet()
