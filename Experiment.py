@@ -1,7 +1,6 @@
 import matplotlib.pylab as pl
 import sys
 import numpy as np
-
 from ExpPDF import ExpPDF
 
 class Experiment(object):
@@ -52,14 +51,14 @@ class Experiment(object):
     def getStdDevResults(self):
         return np.std(self.results)
 
-    #returns std deviation of resultsMean
-    def getStdDevResultsMean(self):
-        return np.std(self.resultsMean)
+    #returns std deviation of resultsMeans
+    def getStdDevresultsMeans(self):
+        return np.std(self.resultsMeans)
 
-    #returns mean of resultsMean
+    #returns mean of resultsMeans
     #this is the mean of all data
     def getResultsSecondMean(self):
-        return np.mean(self.resultsMean)
+        return np.mean(self.resultsMeans)
 
     #runs runResults__ many times and gathers mean
     #and other experimental values
@@ -67,16 +66,16 @@ class Experiment(object):
         numVals: the number of data points taken in a set
         numIterExperiments: the number of sets of data taken
         resultsSecond: list of numIterExperiments many runResults
-        resultsMean: list of all the means of the corresponding results
+        resultsMeans: list of all the means of the corresponding results
     '''
     def runMany(self):
         self.resultsSecond = []
-        self.resultsMean = []
+        self.resultsMeans = []
         for i in range(self.numExperiments):
             sys.stdout.write("\r" + str(100*i/self.numExperiments)[0:3] + "%")
 
             self.runResultsInvCumul()
-            self.resultsMean.append(self.getResultsMean())
+            self.resultsMeans.append(self.getresultsMeans())
             self.resultsSecond.append(self.results)
 
             sys.stdout.flush()
@@ -95,9 +94,16 @@ class Experiment(object):
 
         pl.hist(self.results, bins = bins)
         pl.plot(x,y)
+        pl.title("Spread of lifetime from one experiment")
+        pl.xlabel("Lifetime [micro seconds]")
+        pl.ylabel("Frequency")
+        pl.xlim(0,self.tau*6)
         pl.show()
 
-    #plots data in histogram 
-    def plotHist(self, data):
-        pl.hist(data, bins = 100)
+    #plots resultsMeans in histogram
+    def plotHistMeans(self):
+        pl.hist(self.resultsMeans, bins = 100)
+        pl.title("Spread of average lifetime")
+        pl.xlabel("Average Lifetime [micro seconds]")
+        pl.ylabel("Frequency")
         pl.show()
