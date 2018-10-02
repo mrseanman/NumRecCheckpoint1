@@ -52,13 +52,15 @@ class Experiment(object):
         return np.std(self.results)
 
     #returns std deviation of resultsMeans
-    def getStdDevresultsMeans(self):
+    def getStdDevResultsMean(self):
         return np.std(self.resultsMeans)
 
     #returns mean of resultsMeans
     #this is the mean of all data
     def getResultsSecondMean(self):
         return np.mean(self.resultsMeans)
+
+
 
     #runs runResults__ many times and gathers mean
     #and other experimental values
@@ -75,7 +77,7 @@ class Experiment(object):
             sys.stdout.write("\r" + str(100*i/self.numExperiments)[0:3] + "%")
 
             self.runResultsInvCumul()
-            self.resultsMeans.append(self.getresultsMeans())
+            self.resultsMeans.append(self.getResultsMean())
             self.resultsSecond.append(self.results)
 
             sys.stdout.flush()
@@ -102,7 +104,9 @@ class Experiment(object):
 
     #plots resultsMeans in histogram
     def plotHistMeans(self):
-        pl.hist(self.resultsMeans, bins = 100)
+        bins = 50
+
+        pl.hist(self.resultsMeans, bins = bins)
         pl.title("Spread of average lifetime")
         pl.xlabel("Average Lifetime [micro seconds]")
         pl.ylabel("Frequency")
