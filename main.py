@@ -1,4 +1,5 @@
 from Experiment import Experiment
+import numpy as np
 
 def tauFromOneDataSet():
     tau = 2.2
@@ -24,8 +25,8 @@ def main():
 
     experiment.runMany()
     print("Mean of all data: " + str(experiment.getResultsSecondMean()))
-    print("Std. Dev of mean of one experiment: " + str(experiment.getStdDevResultsMean()))
-    #print("Mean Std. Deviation in each Experiment: " + str(experiment.getMeanStdDevInResults()))
+    print("Std. Dev. of mean of one experiment: " + str(experiment.getStdDevResultsMean()))
+    print("Std. Error. on mean of all data: " + str(experiment.getStdDevResultsMean()/np.sqrt(experiment.numExperiments)))
     experiment.plotHist(experiment.resultsMean)
 
 
