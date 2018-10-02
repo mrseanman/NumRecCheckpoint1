@@ -36,8 +36,6 @@ class Experiment(object):
 
 
 
-
-
     #returns mean of self.results
     def getResultsMean(self):
         return np.mean(self.results)
@@ -63,7 +61,6 @@ class Experiment(object):
     def getResultsSecondMean(self):
         return np.mean(self.resultsMean)
 
-
     #runs runResults__ many times and gathers mean
     #and other experimental values
     '''
@@ -85,6 +82,7 @@ class Experiment(object):
             sys.stdout.flush()
         print("")
 
+    #plots values in results alongside a scaled version of the pdf
     def plotHistWithCurve(self):
         bins = 50
 
@@ -99,6 +97,7 @@ class Experiment(object):
         pl.plot(x,y)
         pl.show()
 
+    #plots data in histogram 
     def plotHist(self, data):
         pl.hist(data, bins = 100)
         pl.show()

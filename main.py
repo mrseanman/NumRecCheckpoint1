@@ -1,6 +1,9 @@
 from Experiment import Experiment
 import numpy as np
 
+
+#for finding tau from one experiment
+#plots a pretty graph with that
 def tauFromOneDataSet():
     tau = 2.2
     upperBound = 30.
@@ -14,7 +17,10 @@ def tauFromOneDataSet():
     print("Std. Dev. of results: " + str(experiment.getStdDevResults()))
     experiment.plotHistWithCurve()
 
-def main():
+
+#calls many experiments and finds distribution data
+#associated with averages
+def manyExperiments():
     tau = 2.2
     upperBound = 30.
     numVals = 1000
@@ -32,5 +38,5 @@ def main():
 
 
 
-main()
+manyExperiments()
 #tauFromOneDataSet()

@@ -30,5 +30,7 @@ class ExpPDF(object):
         y = np.random.uniform(0, maxCumul)
         return self.evalInvCumul(y)
 
+    #evaluates the inverse cumulative function associated with
+    #pdf distribution
     def evalInvCumul(self, x):
         return -self.tau*np.log(1-x)
