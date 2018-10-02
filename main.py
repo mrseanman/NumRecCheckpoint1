@@ -2,7 +2,7 @@ from Experiment import Experiment
 
 def tauFromOneDataSet():
     tau = 2.2
-    upperBound = 25.
+    upperBound = 30.
     numVals = 1000
 
     #send numExperiments = 0 because irrelevant
@@ -14,23 +14,22 @@ def tauFromOneDataSet():
     experiment.plotHistWithCurve()
 
 def main():
-    numExperiments = 5000
-    numVals = 100000
+    tau = 2.2
+    upperBound = 30.
+    numVals = 1000
+    numExperiments = 500
 
-    experiment = Experiment()
 
-    '''
-    experiment.runMany(numExperiments, numVals)
-    print("Mean: " + str(experiment.getResultsSecondMean()))
-    print("Std. Deviation of mean lifetime: " + str(experiment.getStdDevResultsMean()))
-    print("Mean Std. Deviation in each Experiment: " + str(experiment.getMeanStdDevInResults()))
+    experiment = Experiment(tau, upperBound, numVals, numExperiments)
+
+    experiment.runMany()
+    print("Mean of all data: " + str(experiment.getResultsSecondMean()))
+    print("Std. Dev of mean of one experiment: " + str(experiment.getStdDevResultsMean()))
+    #print("Mean Std. Deviation in each Experiment: " + str(experiment.getMeanStdDevInResults()))
     experiment.plotHist(experiment.resultsMean)
-    '''
-
-    experiment.runResultsInvCumul(numVals)
-    print(len(experiment.results))
-    experiment.plotHistWithCurve(experiment.results, numVals)
 
 
 
-tauFromOneDataSet()
+
+main()
+#tauFromOneDataSet()

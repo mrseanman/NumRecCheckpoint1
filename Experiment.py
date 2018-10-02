@@ -64,8 +64,6 @@ class Experiment(object):
         return np.mean(self.resultsMean)
 
 
-
-
     #runs runResults__ many times and gathers mean
     #and other experimental values
     '''
@@ -74,11 +72,11 @@ class Experiment(object):
         resultsSecond: list of numIterExperiments many runResults
         resultsMean: list of all the means of the corresponding results
     '''
-    def runMany(self, numIterExperiments):
+    def runMany(self):
         self.resultsSecond = []
         self.resultsMean = []
-        for i in range(numIterExperiments):
-            sys.stdout.write("\r" + str(100*i/numIterExperiments)[0:3] + "%")
+        for i in range(self.numExperiments):
+            sys.stdout.write("\r" + str(100*i/self.numExperiments)[0:3] + "%")
 
             self.runResultsInvCumul()
             self.resultsMean.append(self.getResultsMean())
@@ -88,7 +86,7 @@ class Experiment(object):
         print("")
 
     def plotHistWithCurve(self):
-        bins = 100
+        bins = 50
 
         pdf = ExpPDF(self.tau, self.upper)
         x = np.linspace(0, self.upper, 200)
